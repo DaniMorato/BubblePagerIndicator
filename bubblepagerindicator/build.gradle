@@ -1,20 +1,14 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'maven-publish'
 
 ext {
-    bintrayRepo = 'BubblePagerIndicator'
-    bintrayName = 'bubblepagerindicator'
-
     publishedGroupId = 'com.santander.globile.bubblepagerindicator'
     libraryName = 'bubblepagerindicator'
     artifact = 'bubblepagerindicator'
 
-    libraryDescription = 'An Android smooth viewpager indicator.'
-    siteUrl = 'https://github.com/DaniMorato/BubblePagerIndicator'
-    gitUrl  = 'https://github.com/DaniMorato/BubblePagerIndicator.git'
-
-    libraryVersion = '1.1.2'
+    lib_version = '1.1.2'
     licenseName = 'The Apache Software License, Version 2.0'
     licenseUrl  = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
     allLicenses = ["Apache-2.0"]
@@ -22,8 +16,8 @@ ext {
 
 buildscript {
     repositories {
-        jcenter()
         mavenCentral()
+        jcenter()
     }
 }
 
@@ -57,3 +51,56 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId 'com.santander.globile'
+            artifactId 'bubblepagerindicator'
+            version lib_version
+
+            //aar artifact you want to publish
+            artifact "./build/outputs/aar/bubblepagerindicator-debug.aar"
+
+            //generate pom nodes for dependencies
+            pom.withXml {
+                def dependenciesNode = asNode().appendNode('dependencies')
+                configurations.implementation.allDependencies.each { dependency ->
+                    def dependencyNode = dependenciesNode.appendNode('dependency')
+                    dependencyNode.appendNode('groupId', dependency.group)
+                    dependencyNode.appendNode('artifactId', dependency.name)
+                    dependencyNode.appendNode('version', dependency.version)
+                }
+            }
+        }
+    }
+
+    //publish to filesystem repo
+    repositories{
+        maven {
+            credentials {
+                username githubUser
+                password githubPassword
+            }
+            url githubDefaultUrl
+        }
+    }
+}
+
+//publishing {
+//    repositories {
+//        maven {
+//            name = "GitHubPackages"
+//            url = uri("https://maven.pkg.github.com/DaniMorato/BubblePagerIndicator")
+//            credentials {
+//                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+//                password = project.findProperty("gpr.key")  ?: System.getenv("PASSWORD")
+//            }
+//        }
+//    }
+//    publications {
+//        gpr(MavenPublication) {
+//            from(components.java)
+//        }
+//    }
+//}

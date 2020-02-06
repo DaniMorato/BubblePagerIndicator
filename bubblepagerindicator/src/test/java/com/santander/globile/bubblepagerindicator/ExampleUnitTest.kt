@@ -1,4 +1,4 @@
-package com.santander.globile.bubblepagerindicator
+package com.shuhart.bubblepagerindicator
 
 import org.junit.Test
 

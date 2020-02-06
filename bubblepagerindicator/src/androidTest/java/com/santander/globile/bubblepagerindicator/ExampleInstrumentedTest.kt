@@ -1,4 +1,4 @@
-package com.santander.globile.bubblepagerindicator
+package com.shuhart.bubblepagerindicator
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

@@ -1,2 +1,2 @@
-include ':app'
+include ':bubblepagerindicator'
 rootProject.name='BubblePageIndicator'

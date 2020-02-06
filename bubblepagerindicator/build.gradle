@@ -2,6 +2,24 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+ext {
+    bintrayRepo = 'BubblePagerIndicator'
+    bintrayName = 'bubblepagerindicator'
+
+    publishedGroupId = 'com.santander.globile.bubblepagerindicator'
+    libraryName = 'bubblepagerindicator'
+    artifact = 'bubblepagerindicator'
+
+    libraryDescription = 'An Android smooth viewpager indicator.'
+    siteUrl = 'https://github.com/DaniMorato/BubblePagerIndicator'
+    gitUrl  = 'https://github.com/DaniMorato/BubblePagerIndicator.git'
+
+    libraryVersion = '1.1.2'
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl  = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
